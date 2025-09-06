@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap');
+
+/* ===== Layout tổng ===== */
+.booking-rooms-layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* ===== Cột bên trái (Tổng tiền) ===== */
+
+.price-summary {
+    width: 400px;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.price-summary h3,
+.price-summary h4 {
+    margin-top: 15px;
+}
+
+.price-summary .price-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.price-summary .price-total {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-back {
+    display: inline-block;
+    background: #6c757d;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* ===== Cột bên phải (Danh sách phòng) ===== */
+.rooms-selection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== Card phòng ===== */
+.room-type-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* Ảnh + thông tin phòng + số lượng phòng ngang hàng */
+.room-type-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+}
+
+/* Ảnh phòng */
+.room-type-image {
+    flex: 0 0 220px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.room-type-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Cột thông tin phòng */
+.room-type-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.room-type-info h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.price {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* ===== Số lượng phòng tách riêng và ngang hàng ===== */
+.room-quantity-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.room-quantity {
+    width: 150px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* ===== Số lượng người (nằm ngang) ===== */
+.capacity-info {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.capacity-info span {
+    white-space: nowrap;
+}
+
+/* ===== Tiện ích ===== */
+.amenities {
+    margin: 10px 0;
+}
+
+.amenities-list {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.amenity-tag {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* ===== Container nhóm phòng ===== */
+.room-guests-container {
+    padding: 15px 20px;
+    /* thêm padding hai bên */
+    border-top: 1px solid #eee;
+    background: #fff;
+}
+
+/* ===== Khối phòng & dịch vụ thêm ===== */
+.guest-group {
+    margin-bottom: 20px;
+    margin-right: 10px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fafafa;
+}
+
+/* Input số lượng người */
+/* Style chung cho các select số lượng người */
+.guest-adults,
+.guest-children,
+.guest-baby {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    appearance: none;
+    /* Ẩn arrow mặc định */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='10 50 70 110 130 50' stroke='%23666' stroke-width='20' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    min-width: 60px;
+}
+
+/* Hiệu ứng hover */
+.guest-adults:hover,
+.guest-children:hover,
+.guest-baby:hover {
+    border-color: #888;
+    background-color: #fafafa;
+}
+
+/* Hiệu ứng khi focus */
+.guest-adults:focus,
+.guest-children:focus,
+.guest-baby:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Label và select nằm gọn hàng */
+.guest-input-row label {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: #444;
+    margin-right: 12px;
+}
+
+.guest-input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.guest-input-row input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* ===== Dịch vụ thêm ===== */
+.extra-services-wrap {
+    margin-top: 8px;
+}
+
+.extra-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.extra-services p {
+    flex-basis: 100%;
+    margin: 0;
+    font-weight: bold;
+}
+
+.extra-services label {
+    white-space: nowrap;
+}
+
+.extra-service-item {
+    margin-right: 10px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .booking-rooms-layout {
+        flex-direction: column;
+    }
+
+    .price-summary {
+        width: 100%;
+    }
+
+    .room-type-main {
+        flex-direction: column;
+    }
+
+    .room-type-image {
+        flex: 0 0 auto;
+    }
+
+    .capacity-info {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+/* ===== Nút Đặt phòng ===== */
+.btn-primary {
+    background-color: #007bff;
+    /* Màu xanh */
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    /* Màu xanh đậm hơn khi hover */
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    background-color: #004080;
+    /* Màu xanh đậm hơn khi click */
+    transform: translateY(1px);
+}

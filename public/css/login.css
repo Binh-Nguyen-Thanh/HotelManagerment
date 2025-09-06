@@ -1,0 +1,26 @@
+* {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('/images/background_home.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+#notification.alert-success {
+    background-color: #10b981;
+}
+
+#notification.alert-danger {
+    background-color: #ef4444;
+}

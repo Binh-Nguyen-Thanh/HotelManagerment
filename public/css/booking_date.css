@@ -1,0 +1,139 @@
+/* booking_date.css — thay thế phần layout cũ bằng block tối giản này */
+
+:root{
+  --card-bg: #fff;
+  --panel-bg: #f5f5f5;
+  --accent: #ff9800;
+  --shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* toàn trang / container */
+.booking-layout {
+  max-width: 1100px;
+  margin: 40px auto;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 0 16px;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* xuống hàng khi không đủ chỗ */
+}
+
+/* Lịch — chiếm phần lớn, co giãn */
+.calendar-box{
+  flex: 1 1 60%;
+  min-width: 300px;   /* ngăn quá nhỏ */
+  max-width: 720px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+/* Thu nhỏ kích thước calendar nội bộ (nếu cần) */
+#calendarWrapper {
+  display: flex;
+  justify-content: center; /* căn giữa toàn bộ */
+  gap: 40px; /* khoảng cách giữa 2 tháng */
+}
+
+/* mỗi tháng */
+.month-block{
+  width: 260px;            /* nhỏ gọn nhưng vẫn đọc được */
+  text-align: center;
+}
+
+.month-block h3,
+.calendar-month-title {
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Lưới ngày */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+/* Ô ngày / weekday */
+.calendar-day,
+.calendar-weekday,
+.calendar-blank {
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  font-size: 13px;
+  user-select: none;
+}
+
+/* trạng thái ngày */
+.calendar-day.disabled { background:#eee; color:#888; pointer-events:none; }
+.calendar-day.start,
+.calendar-day.end { background: var(--accent); color: #fff; font-weight:600; }
+.calendar-day.range { background: #fff3e0; }
+
+/* Controls nút next/prev */
+.calendar-controls { display:flex; justify-content:space-between; margin-bottom:12px; }
+.calendar-controls button{
+  background: var(--accent);
+  color:#fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight:600;
+}
+
+/* Ô thông tin đặt phòng (bên phải) */
+.info-box{
+  flex: 0 0 320px;    /* cố định chiều ngang */
+  min-width: 260px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+/* làm input ngày nằm ngang gọn trong info-box */
+.info-box .info-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.info-box .info-group label { min-width: 72px; font-weight:600;}
+.info-box .info-group input[type="date"]{
+  flex: 1 1 auto;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* nút đặt */
+.btn-book{
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight:700;
+  width:100%;
+}
+
+/* Responsive: nhỏ hơn 900px thì xếp dọc */
+@media (max-width: 900px) {
+  .booking-layout { flex-direction: column; gap: 16px; padding: 0 12px; }
+  .calendar-box, .info-box { max-width: 100%; flex: 1 1 100%; }
+  .month-block { width: 100%; min-width: 240px; }
+  .calendar { gap: 6px; }
+  .info-box .info-group { flex-direction: column; align-items: stretch; }
+  .info-box .info-group label { min-width: auto; }
+}

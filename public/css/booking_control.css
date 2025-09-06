@@ -1,0 +1,263 @@
+/* container */
+.ac-wrap {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .05);
+}
+
+/* filter */
+.ac-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: nowrap;
+}
+
+.ac-filter__dates,
+.ac-filter__buttons {
+    display: contents;
+}
+
+.ac-filter__dates {
+    display: grid;
+    grid-template-columns: minmax(180px, 220px) auto minmax(180px, 220px);
+    align-items: end;
+    gap: 16px;
+    justify-content: center;
+}
+
+.ac-filter__group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+}
+
+.ac-label {
+    font-size: .9rem;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+/* pretty date inputs */
+.ac-input-date {
+    appearance: none;
+    -webkit-appearance: none;
+    background: #fff;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #111827;
+    min-width: 200px;
+    height: 40px;
+    transition: border-color .2s, box-shadow .2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .03);
+}
+
+.ac-input-date:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+/* không còn dùng icon lịch tùy biến nữa */
+.ac-date__icon {
+    display: none !important;
+}
+
+/* buttons */
+.ac-filter__buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.ac-btn {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.ac-btn:hover {
+    filter: brightness(.98);
+}
+
+.ac-btn--primary {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+.ac-btn--chip {
+    background: #fff;
+    border-color: #e5e7eb;
+}
+
+.ac-btn--danger {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #fff;
+}
+
+/* main tabs */
+.ac-hide {
+    position: absolute;
+    left: -9999px;
+}
+
+.ac-tabs {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ac-tab {
+    background: #f3f4f6;
+    color: #111827;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+#ac_tab_bk:checked~.ac-tabs label[for="ac_tab_bk"],
+#ac_tab_sv:checked~.ac-tabs label[for="ac_tab_sv"] {
+    background: #2563eb;
+    color: #fff;
+}
+
+#ac_tab_bk:checked~.ac-panels #panel-bk {
+    display: block;
+}
+
+#ac_tab_sv:checked~.ac-panels #panel-sv {
+    display: block;
+}
+
+.ac-panels .ac-panel {
+    display: none;
+}
+
+/* subtabs */
+.ac-subtabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ac-subtab {
+    background: #eef2ff;
+    color: #1e3a8a;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.ac-badge {
+    background: #e5e7eb;
+    color: #111827;
+    font-size: .75rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+#bk_upcoming:checked~.ac-subtabs label[for="bk_upcoming"],
+#bk_checked_in:checked~.ac-subtabs label[for="bk_checked_in"],
+#bk_checked_out:checked~.ac-subtabs label[for="bk_checked_out"],
+#bk_canceled:checked~.ac-subtabs label[for="bk_canceled"],
+#bk_overdue:checked~.ac-subtabs label[for="bk_overdue"],
+#sv_unused:checked~.ac-subtabs label[for="sv_unused"],
+#sv_used:checked~.ac-subtabs label[for="sv_used"],
+#sv_canceled:checked~.ac-subtabs label[for="sv_canceled"],
+#sv_overdue:checked~.ac-subtabs label[for="sv_overdue"] {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+}
+
+#bk_upcoming:checked~.ac-subpanels #panel-bk-upcoming,
+#bk_checked_in:checked~.ac-subpanels #panel-bk-checked_in,
+#bk_checked_out:checked~.ac-subpanels #panel-bk-checked_out,
+#bk_canceled:checked~.ac-subpanels #panel-bk-canceled,
+#bk_overdue:checked~.ac-subpanels #panel-bk-overdue,
+#sv_unused:checked~.ac-subpanels #panel-sv-unused,
+#sv_used:checked~.ac-subpanels #panel-sv-used,
+#sv_canceled:checked~.ac-subpanels #panel-sv-canceled,
+#sv_overdue:checked~.ac-subpanels #panel-sv-overdue {
+    display: block;
+}
+
+.ac-subpanels .ac-subpanel {
+    display: none;
+}
+
+/* table */
+.ac-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.ac-table th,
+.ac-table td {
+    border: 1px solid #eef2f7;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.ac-table thead th {
+    background: #f8fafc;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.ac-table tbody tr:nth-child(even) {
+    background: #fcfdff;
+}
+
+.ac-table .ac-code {
+    font-weight: 800;
+    color: #1f2937;
+    letter-spacing: .3px;
+}
+
+.ac-table .ac-code--red {
+    color: #dc2626;
+}
+
+/* utility */
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 1000px) {
+    .ac-filter {
+        flex-wrap: wrap;
+    }
+
+    .ac-filter__buttons {
+        flex-wrap: wrap;
+        white-space: normal;
+    }
+}

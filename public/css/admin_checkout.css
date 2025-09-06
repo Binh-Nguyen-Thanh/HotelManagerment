@@ -1,0 +1,204 @@
+/* Tái sử dụng style dạng check-in để đồng bộ giao diện */
+.ck-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ck-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.ck-tab {
+    padding: 8px 12px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.ck-tab.active {
+    color: #111827;
+    border-color: #111827;
+}
+
+.ck-search {
+    margin-bottom: 12px;
+}
+
+.ck-input-row {
+    display: flex;
+    gap: 8px;
+}
+
+.ck-input-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ck-input {
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    min-width: 260px;
+}
+
+.ck-btn {
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.ck-btn.primary {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+}
+
+.ck-btn.danger {
+    background: #ef4444;
+    color: #fff;
+    border-color: #ef4444;
+}
+
+.ck-btn.success {
+    background: #10b981;
+    color: #fff;
+    border-color: #10b981;
+}
+
+.ck-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px;
+    margin-top: 12px;
+}
+
+.ck-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.ck-inline-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.ck-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.ck-field label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.ck-table-wrap {
+    overflow: auto;
+}
+
+.ck-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ck-table th,
+.ck-table td {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 8px;
+    text-align: left;
+}
+
+.ck-table th {
+    background: #f9fafb;
+    font-weight: 600;
+}
+
+.ck-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ===== Modal/Scanner tối giản (dùng chung với Check-in) ===== */
+.ck-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000
+}
+
+.ck-modal.hidden {
+    display: none !important
+}
+
+.ck-modal__box {
+    background: #fff;
+    border-radius: 12px;
+    min-width: 320px;
+    max-width: 720px;
+    width: 92%;
+    padding: 12px 12px 16px
+}
+
+.ck-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px
+}
+
+.ck-modal__body {
+    padding: 4px 0
+}
+
+.ck-scan-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    overflow: hidden;
+    border-radius: 10px
+}
+
+#coScanVideo,
+#coScanPaint {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.ck-scan-guide {
+    position: absolute;
+    inset: 15% 10%;
+    border: 2px dashed rgba(255, 255, 255, .8);
+    border-radius: 8px;
+    pointer-events: none
+}
+
+.ck-muted {
+    opacity: .75
+}

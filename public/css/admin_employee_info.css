@@ -1,0 +1,359 @@
+:root {
+    --primary: #2563eb;
+    --primary-600: #1d4ed8;
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --success-bg: #ecfdf5;
+    --success-text: #065f46;
+    --success-border: #a7f3d0;
+    --danger-bg: #fef2f2;
+    --danger-text: #991b1b;
+    --danger-border: #fecaca;
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 1px rgba(16, 24, 40, .03);
+    --shadow-md: 0 8px 24px rgba(16, 24, 40, .08);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --focus: 0 0 0 4px rgba(37, 99, 235, .15);
+}
+
+/* Page */
+.emp-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 20px 56px;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    border-radius: 18px
+}
+
+/* Header (đã bỏ nút quay lại) */
+.emp-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    margin-bottom: 18px
+}
+
+.page-title {
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 6px
+}
+
+.page-subtitle {
+    color: var(--muted);
+    margin: 0;
+    font-size: 14px
+}
+
+/* Alerts */
+.alert {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 16px;
+    background: #fff
+}
+
+.alert.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border-color: var(--success-border)
+}
+
+.alert.danger {
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    border-color: var(--danger-border)
+}
+
+.alert__content ul {
+    margin: 6px 0 0 18px
+}
+
+/* Grid */
+.emp-form {
+    display: block
+}
+
+.emp-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px
+}
+
+/* Cards */
+.emp-card,
+.emp-avatar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 18px;
+    transition: box-shadow .2s ease, transform .2s ease
+}
+
+.emp-card:hover,
+.emp-avatar-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px)
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border)
+}
+
+/* Avatar */
+.avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    transition: border-color .2s ease, background .2s ease;
+    outline: none
+}
+
+.avatar-wrap.is-empty {
+    background: #f3f4f6
+}
+
+/* nền xám khi trống */
+#empAvatarPreview {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s ease, border-color .2s ease;
+    background: #f8fafc;
+    cursor: pointer
+}
+
+#empAvatarPreview:hover {
+    transform: scale(1.015);
+    border-color: var(--primary)
+}
+
+.avatar-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px
+}
+
+/* Khung trống chỉ có dấu + */
+.avatar-empty {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    border: 2px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5e7eb;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer
+}
+
+.avatar-plus {
+    font-size: 56px;
+    line-height: 1;
+    color: #6b7280;
+    font-weight: 600
+}
+
+.avatar-empty:hover {
+    border-color: var(--primary)
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px
+}
+
+/* Inputs — THU GỌN + NGĂN ĐÈ LÊN NHAU */
+.grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px
+}
+
+.field {
+    min-width: 0
+}
+
+/* quan trọng để tránh overflow trong grid */
+.field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 6px
+}
+
+.req {
+    color: #ef4444
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    /* tránh tràn */
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #f9fafb;
+    padding: 0 12px;
+    font-size: 14px;
+    color: var(--text);
+    transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.input::placeholder {
+    color: #9ca3af
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: var(--focus);
+    background: #fff
+}
+
+textarea.input {
+    height: auto;
+    min-height: 90px;
+    padding: 10px 12px
+}
+
+/* Select */
+.select-wrap {
+    position: relative;
+    min-width: 0
+}
+
+.select-wrap .input {
+    appearance: none;
+    padding-right: 38px
+}
+
+.select-caret {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' stroke='grey' viewBox='0 0 24 24' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat center/16px
+}
+
+.col-span-2 {
+    grid-column: span 2
+}
+
+/* Actions */
+.actions {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px
+}
+
+.btn {
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    padding: 0 16px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+    box-shadow: var(--shadow-sm)
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md)
+}
+
+.btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none
+}
+
+.btn .btn-icon {
+    display: inline-flex
+}
+
+.btn.primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff
+}
+
+.btn.primary:hover {
+    background: var(--primary-600);
+    border-color: var(--primary-600)
+}
+
+.btn.ghost {
+    background: #fff;
+    color: #374151
+}
+
+.btn.ghost:hover {
+    border-color: #cfd8ea;
+    background: #f8fafc
+}
+
+.hidden {
+    display: none
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .emp-grid {
+        grid-template-columns: 1fr
+    }
+
+    .col-span-2 {
+        grid-column: span 1
+    }
+}
+
+@media (max-width: 520px) {
+    .grid2 {
+        grid-template-columns: 1fr
+    }
+}

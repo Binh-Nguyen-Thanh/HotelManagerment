@@ -1,0 +1,47 @@
+* {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('/images/background_home.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.upload-icon {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#profileImagePreview {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+#profileImagePreview:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+#notification.alert-success {
+    background-color: #10b981;
+}
+
+#notification.alert-danger {
+    background-color: #ef4444;
+}
+
+.content-area {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.content-area.loading {
+    opacity: 0.5;
+}
+
+.sidebar-item {
+    margin-bottom: 0.5rem;
+}

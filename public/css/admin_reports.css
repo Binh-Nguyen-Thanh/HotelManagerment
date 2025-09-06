@@ -1,0 +1,362 @@
+/* ====== Biến & nền chung ====== */
+:root {
+    --radius: 12px;
+    --radius-lg: 16px;
+    --gap: 12px;
+    --txt: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f8fafc;
+    --brand: #2563eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background: var(--bg);
+    color: var(--txt);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ====== Khung trang danh sách ====== */
+.rp-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rp-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap);
+    margin-bottom: 16px;
+}
+
+.rp-head h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Alert */
+.alert {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #9a3412;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+}
+
+.alert.ok {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--txt);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background: #f3f4f6;
+}
+
+.btn.primary {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+}
+
+.btn.primary:hover {
+    filter: brightness(.95);
+}
+
+.btn.danger {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: #fff;
+}
+
+.btn.ghost {
+    background: #fff;
+    border-color: #eaeef2;
+    color: #334155;
+}
+
+.btn.icon {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+}
+
+.btn-lg {
+    height: 44px;
+    padding: 0 18px;
+}
+
+/* Badge */
+.badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #f9fafb;
+}
+
+.badge.excel {
+    background: #dbeafe;
+    border-color: #bfdbfe;
+    color: #1d4ed8;
+}
+
+.badge.word {
+    background: #dcfce7;
+    border-color: #bbf7d0;
+    color: #065f46;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ====== Danh sách card report (gọn) ====== */
+.rp-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width:980px) {
+    .rp-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.rp-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 12px;
+    box-shadow: 0 2px 12px rgba(16, 24, 40, .04);
+}
+
+.rp-card__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.rp-card__main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    min-height: 40px;
+}
+
+.rp-card__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.rp-card__desc {
+    color: #374151;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.rp-card__right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ====== Modal chung (overlay xám, giữa màn hình) ====== */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 60;
+}
+
+.modal[aria-hidden="false"] {
+    display: block;
+}
+
+.modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(2px);
+}
+
+.modal__panel {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(1100px, 96vw);
+    max-height: 92vh;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
+}
+
+.modal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal__head h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* ====== Form trong modal (Thêm/Sửa) ====== */
+.rp-form {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    margin: 12px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width:900px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.fld--full {
+    grid-column: 1 / -1;
+}
+
+.fld label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.inp {
+    width: 100%;
+    height: 46px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    font-size: 15px;
+    outline: none;
+}
+
+.inp:focus {
+    border-color: #cbd5e1;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .08);
+}
+
+.inp-lg {
+    height: 50px;
+}
+
+.inp.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Textarea SQL full ngang + resize cả 2 chiều */
+.sql-area {
+    width: 100%;
+    min-height: 560px;
+    line-height: 1.45;
+    padding: 12px 14px;
+    white-space: pre;
+    overflow: auto;
+    resize: both;
+    max-width: none;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-end;
+}
+
+/* ====== Modal chọn thời gian (giữa màn hình) ====== */
+.date-modal .modal__panel {
+    width: min(560px, 94vw);
+}
+
+.date-form {
+    padding: 14px 16px;
+}
+
+.date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.date-grid .fld {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.date-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+/* Nhỏ gọn link preset */
+.presets {
+    margin-top: 6px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.preset {
+    border: 1px dashed #e5e7eb;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.preset:hover {
+    background: #f9fafb;
+}

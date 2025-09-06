@@ -1,0 +1,223 @@
+.room-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.room-card {
+    width: 200px;
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    position: relative;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Overlay làm mờ nền */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Nội dung modal */
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    width: 400px;
+    max-width: 95%;
+    margin: 100px auto;
+    position: relative;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Các nhóm form */
+.form-group,
+.form-group-row {
+    margin-bottom: 15px;
+}
+
+.form-group-row {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Nút lưu/xác nhận */
+.btn-save,
+.btn-confirm {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-save:hover,
+.btn-confirm:hover {
+    background-color: #45a049;
+}
+
+/* Nút hủy */
+.btn-cancel {
+    background-color: #ccc;
+    color: black;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 6px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #bbb;
+}
+
+/* Hành động trong modal (xóa) */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.status-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.status-indicator.ready {
+    background-color: green;
+}
+
+.status-indicator.rent {
+    background-color: orange;
+}
+
+.status-indicator.repair {
+    background-color: red;
+}
+
+/* room info */
+.room-info-modal {
+    width: 500px;
+    max-width: 95%;
+    text-align: center;
+}
+
+.room-info-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.room-info-details {
+    text-align: left;
+}
+
+#roomInfoNumber {
+    margin: 0;
+}
+
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.room-price {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.room-max {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.room-amenities {
+    flex-direction: column;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+#roomInfoAmenities .amenity-tag {
+    background-color: #e0f7fa;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: inline-block;
+    margin: 4px 6px 4px 0;
+}
+
+/* Căn phải filter */
+.header-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-left: auto; /* đẩy sát phải */
+}
