@@ -23,7 +23,7 @@ class AdminAuthController extends Controller
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $user = Auth::user();
             if (isset($user->role) && $user->role === 'admin') {
-                return redirect()->intended('/admin/information/index');
+                return redirect()->intended('/admin/information');
             } elseif ($user->role === 'manager') {
                 return redirect()->intended('/admin/employees');
             } elseif ($user->role === 'receptionist') {
