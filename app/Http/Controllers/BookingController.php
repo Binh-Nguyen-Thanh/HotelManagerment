@@ -198,8 +198,8 @@ class BookingController extends Controller
     private function vnpayRedirect(float $amount)
     {
         $vnp_Url        = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_TmnCode    = "LZJZZF7U";
-        $vnp_HashSecret = "FC4PMZJBOLF4FROU0IQHYAJLT9S94BCQ";
+        $vnp_TmnCode    = "R16FGL00";
+        $vnp_HashSecret = "JF17CO6DDNG2Y05Y4YVC7PFNMOCMOI6I";
 
         $inputData = [
             "vnp_Version"    => "2.1.0",
