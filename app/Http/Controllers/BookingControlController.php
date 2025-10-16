@@ -11,10 +11,13 @@ use Illuminate\Support\Carbon;
 
 class BookingControlController extends Controller
 {
+    /**
+     * Trang điều phối đơn đặt phòng & dịch vụ
+     */
     public function index(Request $request)
     {
-        // Hôm nay (không kèm thời gian) để so sánh quá hạn
-        $today = Carbon::today();
+        // Lấy "hôm nay" theo timezone app, cắt về 00:00:00
+        $today = Carbon::now(config('app.timezone'))->startOfDay();
 
         /**
          * =========================
@@ -27,41 +30,41 @@ class BookingControlController extends Controller
 
         $bkItems = $bookings->map(function (Booking $b) {
             return [
-                'code'           => $b->booking_code,
-                'guest'          => optional($b->user)->name ?? ('User#' . $b->user_id),
-                'room_number'    => optional($b->room)->room_number ?? ('' . $b->room_id),
-                'room_type'      => optional($b->roomType)->name ?? ('' . $b->room_type_id),
-                'booking_in'     => $b->booking_date_in ? Carbon::parse($b->booking_date_in) : null,
-                'booking_out'    => $b->booking_date_out ? Carbon::parse($b->booking_date_out) : null,
-                'check_in'       => $b->check_in ? Carbon::parse($b->check_in) : null,
-                'check_out'      => $b->check_out ? Carbon::parse($b->check_out) : null,
+                'code'        => $b->booking_code,
+                'guest'       => optional($b->user)->name ?? ('User#' . $b->user_id),
+                'room_number' => optional($b->room)->room_number ?? (string) $b->room_id,
+                'room_type'   => optional($b->roomType)->name ?? (string) $b->room_type_id,
+
+                'booking_in'  => $b->booking_date_in ? Carbon::parse($b->booking_date_in) : null,
+                'booking_out' => $b->booking_date_out ? Carbon::parse($b->booking_date_out) : null,
+                'check_in'    => $b->check_in ? Carbon::parse($b->check_in) : null,
+                'check_out'   => $b->check_out ? Carbon::parse($b->check_out) : null,
+
                 // pending|success|refunded|cancel|checked_in|checked_out
-                'status'         => $b->status,
-                'created_at'     => Carbon::parse($b->created_at),
-                'updated_at'     => Carbon::parse($b->updated_at),
+                'status'      => $b->status,
+                'created_at'  => Carbon::parse($b->created_at),
+                'updated_at'  => Carbon::parse($b->updated_at),
             ];
         });
 
         // Phân tab phòng:
-        // - Chưa check-in: status in [pending,success] và booking_in >= hôm nay
-        // - Đã check-in:   status === checked_in
-        // - Đã check-out:  status === checked_out
-        // - Đơn hủy:       status === cancel
-        // - Quá hạn:       status in [pending,success] và booking_in < hôm nay
         $bk_upcoming = $bkItems->filter(function ($r) use ($today) {
-            return in_array($r['status'], ['pending', 'success'])
+            return in_array($r['status'], ['pending', 'success'], true)
                 && $r['booking_in']
-                && $r['booking_in']->greaterThanOrEqualTo($today); // ✅ >= hôm nay
+                && $r['booking_in']->greaterThanOrEqualTo($today); // >= hôm nay
         });
 
         $bk_checked_in  = $bkItems->filter(fn ($r) => $r['status'] === 'checked_in');
         $bk_checked_out = $bkItems->filter(fn ($r) => $r['status'] === 'checked_out');
         $bk_canceled    = $bkItems->filter(fn ($r) => $r['status'] === 'cancel');
 
+        // Quá hạn: chỉ những đơn còn có thể hủy (chưa check-in/out)
         $bk_overdue = $bkItems->filter(function ($r) use ($today) {
-            return in_array($r['status'], ['pending', 'success'])
+            return in_array($r['status'], ['pending', 'success'], true)
                 && $r['booking_in']
-                && $r['booking_in']->lt($today);
+                && $r['booking_in']->lt($today)
+                && empty($r['check_in'])   // chưa nhận phòng
+                && empty($r['check_out']); // chưa trả phòng
         });
 
         /**
@@ -69,13 +72,12 @@ class BookingControlController extends Controller
          *        ĐƠN DỊCH VỤ
          * =========================
          * Lưu ý: Lịch quá hạn dựa THEO NGÀY ĐẶT (booking_date), không phải come_date.
-         * - Quá hạn: booking_date < hôm nay và chưa hủy/chưa hoàn tất
-         * - Chưa tới: booking_date >= hôm nay (hoặc null) và chưa hủy/chưa hoàn tất
-         * - Đã tới: status === 'comed'
-         * - Đã hủy: status === 'cancel'
+         * - Quá hạn: booking_date < hôm nay, chưa hủy/hoàn tất, và chưa đến (come_date rỗng)
+         * - Chưa tới: booking_date >= hôm nay (hoặc null), chưa hủy/hoàn tất
+         * - Đã tới:  status === 'comed'
+         * - Đã hủy:  status === 'cancel'
          */
 
-        // Lấy toàn bộ service bookings
         $svBookings = ServiceBooking::orderByDesc('created_at')->get();
 
         // Map tên user
@@ -117,21 +119,27 @@ class BookingControlController extends Controller
             ];
         });
 
-        // Phân tab dịch vụ THEO NGÀY ĐẶT (booking_date)
         $sv_canceled = $svItems->filter(fn ($r) => $r['status'] === 'cancel');
         $sv_used     = $svItems->filter(fn ($r) => $r['status'] === 'comed');
 
-        // Quá hạn: booking_date < hôm nay & chưa hủy/chưa hoàn tất
+        // Quá hạn: chỉ còn hủy được (chưa hủy/hoàn tất & chưa đến)
         $sv_overdue = $svItems->filter(function ($r) use ($today) {
-            return !in_array($r['status'], ['cancel', 'comed'])
+            return !in_array($r['status'], ['cancel', 'comed'], true)
                 && !empty($r['booking_date'])
-                && $r['booking_date']->lt($today);
+                && $r['booking_date']->lt($today)
+                && empty($r['come_date']); // chưa đến thực tế
         });
 
         // Chưa tới: booking_date >= hôm nay (hoặc null) & chưa hủy/chưa hoàn tất
-        $sv_unused = $svItems->filter(function ($r) use ($today) {
-            return !in_array($r['status'], ['cancel', 'comed'])
-                && (empty($r['booking_date']) || $r['booking_date']->isToday() || $r['booking_date']->isFuture());
+        $sv_unused = $svItems->filter(function ($r) {
+            if (in_array($r['status'], ['cancel', 'comed'], true)) {
+                return false;
+            }
+            // null => coi như chưa tới
+            if (empty($r['booking_date'])) {
+                return true;
+            }
+            return $r['booking_date']->isToday() || $r['booking_date']->isFuture();
         });
 
         return view('admin.booking_control.index', [
@@ -150,40 +158,95 @@ class BookingControlController extends Controller
         ]);
     }
 
+    /**
+     * Hủy đơn đặt phòng (idempotent): nếu đã hủy sẵn -> ok luôn
+     */
     public function cancelBooking(Request $request)
     {
         $request->validate(['booking_code' => ['required', 'string', 'max:50']]);
-        $code = $request->input('booking_code');
+        $code = trim($request->input('booking_code'));
 
         $b = Booking::where('booking_code', $code)->first();
         if (!$b) {
             return response()->json(['ok' => false, 'message' => 'Không tìm thấy đơn.'], 404);
         }
 
-        if (in_array($b->status, ['checked_in', 'checked_out', 'cancel'])) {
-            return response()->json(['ok' => false, 'message' => 'Trạng thái hiện tại không thể hủy.'], 422);
+        $status = strtolower((string) $b->status);
+
+        // Idempotent: đã hủy sẵn coi như thành công
+        if ($status === 'cancel') {
+            return response()->json(['ok' => true]);
         }
 
-        $b->update(['status' => 'cancel']);
+        if (!$this->canCancelBooking($b)) {
+            return response()->json([
+                'ok'      => false,
+                'message' => 'Đơn đã nhận/trả phòng hoặc không ở trạng thái chờ. Không thể hủy.'
+            ], 422);
+        }
+
+        $b->forceFill(['status' => 'cancel'])->save();
+
         return response()->json(['ok' => true]);
     }
 
+    /**
+     * Hủy đơn dịch vụ (idempotent): nếu đã hủy sẵn -> ok luôn
+     */
     public function cancelService(Request $request)
     {
         $request->validate(['service_booking_code' => ['required', 'string', 'max:50']]);
-        $code = $request->input('service_booking_code');
+        $code = trim($request->input('service_booking_code'));
 
         $sb = ServiceBooking::where('service_booking_code', $code)->first();
         if (!$sb) {
             return response()->json(['ok' => false, 'message' => 'Không tìm thấy đơn dịch vụ.'], 404);
         }
 
-        if (in_array($sb->status, ['cancel', 'comed'])) {
-            return response()->json(['ok' => false, 'message' => 'Trạng thái hiện tại không thể hủy.'], 422);
+        $status = strtolower((string) $sb->status);
+
+        // Idempotent
+        if ($status === 'cancel') {
+            return response()->json(['ok' => true]);
         }
 
-        $sb->update(['status' => 'cancel']);
+        if (!$this->canCancelService($sb)) {
+            return response()->json([
+                'ok'      => false,
+                'message' => 'Đơn dịch vụ đã hoàn tất/đã đến hoặc không hợp lệ để hủy.'
+            ], 422);
+        }
+
+        $sb->forceFill(['status' => 'cancel'])->save();
+
         return response()->json(['ok' => true]);
+    }
+
+    /**
+     * =========================
+     *         HELPERS
+     * =========================
+     */
+
+    /**
+     * Kiểm tra quyền hủy Booking: đang chờ (pending|success), chưa check-in/out
+     */
+    private function canCancelBooking(Booking $b): bool
+    {
+        $status = strtolower(trim((string) $b->status));
+        return in_array($status, ['pending', 'success'], true)
+            && empty($b->check_in)
+            && empty($b->check_out);
+    }
+
+    /**
+     * Kiểm tra quyền hủy ServiceBooking: chưa cancel/comed và chưa đến (come_date rỗng)
+     */
+    private function canCancelService(ServiceBooking $sb): bool
+    {
+        $status = strtolower(trim((string) $sb->status));
+        return !in_array($status, ['cancel', 'comed'], true)
+            && empty($sb->come_date);
     }
 
     /**
